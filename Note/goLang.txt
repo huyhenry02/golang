@@ -1,0 +1,96 @@
+1. Biến và khai báo biến:
+- Cách đặt tên biến
+ + var tên_biến kiểu_dữ_liệu = giá_trị -> vd : var i int = 0;
+ + var tên_biến kiểu dữ liệu -> vd: var i int
+ + var tên_biến := giá trị -> vd i := 10
+- Phạm vi khai báo biến:
+ + Biến cục bộ: khai báo trong hàm -> chỉ gọi được trong hàm k gọi ngoài hàm đc
+ + Biến toàn cục: Khái báo ngoài hàm và có thể gọi vào trong các hàm được
+- Khai báo nhiều biến:
+ + vd: var a, b, c int = 1, 2, 3
+ + vd: var (
+        a int = 1
+        b int = 2
+        c string = "Hello"
+    	)
+- zero value: (0, "", false, nil)
+
+2. Hàm trong golang
+- func tên_hàm(danh_sách_tham_số) kiểu_trả_về {
+    // thân hàm
+}
+- Để gọi một hàm, chúng ta sử dụng tên hàm theo sau là cặp dấu ngoặc đơn ().
+- tham số hàm -> biến + kiểu dữ liệu
+ vd: func add(a int, b int) int {
+    return a + b
+}
+- Hàm trả về 1 giá trị: 
+ vd: // Khai báo hàm trả về một giá trị
+func multiply(a int, b int) int {
+    return a * b
+}
+- Hàm trả về nhiều giá trị cách nhau bởi dấu ,
+ vd: func divide(a int, b int) (int, error) {
+    if b == 0 {
+        return 0, fmt.Errorf("division by zero")
+    }
+    return a / b, nil
+}
+- Hàm biến đổi: Hàm biến đổi là làm có thể nhận được một lượng số tham số k xác định.
+Khai báo hàm biến đổi dùng dấu ... trước kiểu dữ liệu của tham số cuối cùng
+ vd: // Khai báo hàm biến đổi
+func sum(numbers ...int) int {
+    total := 0
+    for _, number := range numbers {
+        total += number
+    }
+    return total
+}
+
+func main() {
+    // Gọi hàm sum với số lượng tham số khác nhau
+    fmt.Printf("Sum: %d\n", sum(1, 2, 3))
+    fmt.Printf("Sum: %d\n", sum(4, 5, 6, 7, 8))
+}
+ + Trong đó numbers là 1 slice
+- Hàm ẩn danh: Hàm ẩn danh là hàm không có tên và có thể được khai báo và gọi ngay lập tức. 
+Hàm ẩn danh thường được sử dụng như các hàm callback hoặc trong các biểu thức ngắn gọn.
+ vd: package main
+
+import "fmt"
+
+func main() {
+    // Khai báo và gọi hàm ẩn danh
+    func(message string) {
+        fmt.Println(message)
+    }("Hello, Anonymous Function!")
+}
+- Hàm với tham số con trỏ (pointer parameters)
+ + Go hỗ trợ truyền tham số bằng con trỏ, cho phép hàm thay đổi giá trị của biến gốc.
+ + Con trỏ là biến lưu địa chỉ bộ nhớ của một biến khác: không lưu giá trị, lưu nơi chưa giá trị.
+   vd: x := 10
+	   p := &x   // p là con trỏ, trỏ tới x
+ + Hàm có tham số con trỏ (truyền tham chiếu): ĐÂY LÀ ỨNG DỤNG QUAN TRỌNG NHẤT CỦA POINTER
+ VD: func change(n *int) {
+			*n = 100
+		}
+
+		x := 10
+		change(&x)
+		fmt.Println(x) // 100
+ + so sánh với PHP
+ PHP: 
+	 function change(&$n) {
+	    $n = 100;
+	}
+ Go: 
+	 func change(n *int) {
+		*n = 100
+	}
+- Hàm với Giá Trị Trả Về Được Đặt Tên: Go cho phép đặt tên cho các giá trị trả về trong khai báo hàm
+Điều này giúp mã nguồn trở nên rõ hàng hơn và sử dụng "naked return"
+
+
+
+
+
